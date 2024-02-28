@@ -27,7 +27,35 @@ class ProductManager {
         this.products.push(newProduct);
         this.nextId++;
 
+        
+
+        
     }
+
+    //updatear la info de un producto
+    updateProduct(id, updatedFields) {
+        const productIndex = this.products.findIndex(p => p.id === id);
+        if (productIndex === -1) {
+            console.log("Error: Producto no encontrado.");
+            return;
+        }
+
+const updatedProduct = { ...this.products[productIndex], ...updatedFields };
+this.products[productIndex] = updatedProduct;
+}
+
+// eliminar producto
+deleteProduct(id) {
+    const indexToDelete = this.products.findIndex(p => p.id === id);
+    if (indexToDelete === -1) {
+        console.log("Error: El producto que se intento eliminar no fue encontrado.");
+        return;
+    }
+
+    
+    this.products.splice(indexToDelete, 1);
+}
+
     getProducts() {
         return this.products;
     }
@@ -56,3 +84,11 @@ console.log(allProducts)
 
 console.log(manager.getProductById(1));
 console.log(manager.getProductById(77));
+
+manager.updateProduct(2, { price: 1899, stock: 777 });
+
+console.log(manager.getProducts());
+
+manager.deleteProduct(3);
+
+console.log(manager.getProducts());
