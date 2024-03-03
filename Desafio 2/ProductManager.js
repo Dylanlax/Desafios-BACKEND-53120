@@ -1,94 +1,106 @@
 // HECHO POR DYLAN LAX
+const fs = require('fs');
+
 class ProductManager {
-    constructor() {
-        this.products = [];
-        this.nextId = 1;
+    constructor(filePath) {
+        this.path = filePath;
+        this.loadProducts();
     }
 
-    addProduct(code, description, title, thumbnail, price, stock){
-
-        const existingProduct = this.products.find(product => product.code === code);
-        if(existingProduct) {
-            console.log("Ya existe un producto con este mismo codigo");
-            return;
+    loadProducts() {
+        try {
+            const data = fs.readFileSync(this.path, 'utf8');
+            this.products = JSON.parse(data);
+        } catch (err) {
+            console.error('Error al cargar productos:', err);
+            this.products = [];
         }
+    }
 
+    saveProducts() {
+        try {
+            fs.writeFileSync(this.path, JSON.stringify(this.products, null, 2));
+        } catch (err) {
+            console.error('Error guardando productos:', err);
+        }
+    }
 
-        const newProduct = {
-            id: this.nextId,
-            code: code,
-            title: title,
-            description: description,
-            thumbnail: thumbnail,
-            price: price,
-            stock: stock
-        };
-
+    addProduct(newProduct) {
+        newProduct.id = this.products.length > 0 ? this.products[this.products.length - 1].id + 1 : 1;
         this.products.push(newProduct);
-        this.nextId++;
-
-        
-
-        
+        this.saveProducts();
+        return newProduct;
     }
-
-    //updatear la info de un producto
-    updateProduct(id, updatedFields) {
-        const productIndex = this.products.findIndex(p => p.id === id);
-        if (productIndex === -1) {
-            console.log("Error: Producto no encontrado.");
-            return;
-        }
-
-const updatedProduct = { ...this.products[productIndex], ...updatedFields };
-this.products[productIndex] = updatedProduct;
-}
-
-// eliminar producto
-deleteProduct(id) {
-    const indexToDelete = this.products.findIndex(p => p.id === id);
-    if (indexToDelete === -1) {
-        console.log("Error: El producto que se intento eliminar no fue encontrado.");
-        return;
-    }
-
-    
-    this.products.splice(indexToDelete, 1);
-}
 
     getProducts() {
         return this.products;
     }
 
     getProductById(id) {
-        const product = this.products.find(product => product.id === id);
-        if (product){
-            return product;
-        } else {
-            console.log("Error: producto no encontrado!");
-        }
+        return this.products.find(product => product.id === id);
     }
-    
+
+    updateProduct(id, updatedFields) {
+        const index = this.products.findIndex(product => product.id === id);
+        if (index !== -1) {
+            this.products[index] = { ...this.products[index], ...updatedFields };
+            this.saveProducts();
+            return this.products[index];
+        }
+        return null;
+    }
+
+    deleteProduct(id) {
+        const index = this.products.findIndex(product => product.id === id);
+        if (index !== -1) {
+            this.products.splice(index, 1);
+            this.saveProducts();
+            return true;
+        }
+        return false;
+    }
 }
 
-const manager = new ProductManager();
 
-manager.addProduct("COD1", "Producto 1", "Ensalada", "../img/ensalada.jpg", 2000, 2)
-manager.addProduct("COD2", "Producto 2", "Papasfritas", "../img/papasfritas.jpg", 500, 7)
-manager.addProduct("COD3", "Producto 3", "Hamburguesa", "../img/Hamburguesa.jpg", 6000, 5)
-manager.addProduct("COD1", "Producto 4", "Frutas", "../img/frutas.jpg", 1000, 4)
+const manager = new ProductManager('products.json');
+
+// AGREGAR PRODUCTO
+manager.addProduct({
+    title: 'Producto 1',
+    description: 'Hamburrguesa',
+    price: 1000,
+    thumbnail: 'img/imagen1.jpg',
+    code: 'PROD001',
+    stock: 20
+});
+
+manager.addProduct({
+    title: 'Producto 2',
+    description: 'Papafritas',
+    price: 777,
+    thumbnail: 'img/imagen2.jpg',
+    code: 'PROD002',
+    stock: 77
+});
+
+manager.addProduct({
+    title: 'Producto 3',
+    description: 'Helado',
+    price: 500,
+    thumbnail: 'img/imagen3.jpg',
+    code: 'PROD003',
+    stock: 30
+});
 
 
-const allProducts = manager.getProducts();
-console.log(allProducts)
 
+// CONSULTRAR PRODUCTO POR ID
 console.log(manager.getProductById(1));
-console.log(manager.getProductById(77));
 
-manager.updateProduct(2, { price: 1899, stock: 777 });
+// MODIFICAR PRODUCTO
+manager.updateProduct(1, { price: 300 });
 
+// CONSULTAR PRODUCTOS
 console.log(manager.getProducts());
-
-manager.deleteProduct(3);
-
-console.log(manager.getProducts());
+// ELIMINAR PRODUCTO
+manager.deleteProduct(1);
