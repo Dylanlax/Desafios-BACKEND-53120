@@ -1,0 +1,92 @@
+[
+    {
+        "id": 1,
+        "title": "Producto 1",
+        "description": "Helado",
+        "price": 500,
+        "thumbnail": "img/imagen3.jpg",
+        "code": "PROD003",
+        "stock": 30
+    },
+    {
+        "id": 2,
+        "title": "Producto 2",
+        "description": "papafrita",
+        "price": 500,
+        "thumbnail": "img/imagen3.jpg",
+        "code": "PROD003",
+        "stock": 30
+    },
+    {
+        "id": 3,
+        "title": "Producto 3",
+        "description": "pizza",
+        "price": 500,
+        "thumbnail": "img/imagen3.jpg",
+        "code": "PROD003",
+        "stock": 30
+    },
+    {
+        "id": 4,
+        "title": "Producto 4",
+        "description": "hielo",
+        "price": 500,
+        "thumbnail": "img/imagen3.jpg",
+        "code": "PROD003",
+        "stock": 30
+    },
+    {
+        "id": 5,
+        "title": "Producto 5",
+        "description": "cocacola",
+        "price": 500,
+        "thumbnail": "img/imagen3.jpg",
+        "code": "PROD003",
+        "stock": 30
+    },
+    {
+        "id": 6,
+        "title": "Producto 6",
+        "description": "agua",
+        "price": 500,
+        "thumbnail": "img/imagen3.jpg",
+        "code": "PROD003",
+        "stock": 30
+    },
+    {
+        "id": 7,
+        "title": "Producto 7",
+        "description": "Caramelos",
+        "price": 500,
+        "thumbnail": "img/imagen3.jpg",
+        "code": "PROD003",
+        "stock": 30
+    },
+    {
+        "id": 8,
+        "title": "Producto 8",
+        "description": "Fideos",
+        "price": 500,
+        "thumbnail": "img/imagen3.jpg",
+        "code": "PROD003",
+        "stock": 30
+    },
+    {
+        "id": 9,
+        "title": "Producto 9",
+        "description": "Tacos",
+        "price": 500,
+        "thumbnail": "img/imagen3.jpg",
+        "code": "PROD003",
+        "stock": 30
+    },
+    {
+        "id": 10,
+        "title": "Producto 10",
+        "description": "Sprite",
+        "price": 500,
+        "thumbnail": "img/imagen3.jpg",
+        "code": "PROD003",
+        "stock": 30
+    }
+]
